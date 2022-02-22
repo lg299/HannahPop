@@ -1,4 +1,4 @@
-#Print out a board
+#Step 1 Print out a board
 #from IPython.display import clear_output -only works in jupyter
 
 def display_board(board):
@@ -7,10 +7,10 @@ def display_board(board):
     print(board[1]+'|'+board[2]+'|'+board[3])
 
 
-test_board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+test_board = ['X','X','X','X','X','O','X','X',' ','X']
 display_board(test_board)
 
-#Asking for user input to assign them with a marker: X or O
+#Step 2 Asking for user input to assign them with a marker: X or O
 
 def player_choice():
     '''
@@ -29,19 +29,25 @@ def player_choice():
         return ('O', 'X')
 
 player_choice()
-#Write a function that takes in the board list object, a marker ('X' or 'O'), and a desired position (number 1-9) and assigns it to the board.
+
+
+#Step 3  Write a function that takes in the board list object, a marker ('X' or 'O'), and a desired position (number 1-9) and assigns it to the board.
 
 def place_marker(board,marker,position):
     board[position] = marker
 
-place_marker(test_board,'X',3)
+place_marker(test_board,'O',4)
 display_board(test_board)
 
+
+
 #Step 4: Write a function that takes in a board and a mark (X or O) and then checks to see if that mark has won.
-#ALL ROWS check if they share the same marker.
-#ALL COLUMNS check if they share the same marker.
-#2 diagonals check if they share the same marker.
+
 def win_check(board, mark):
+    '''
+    Checking if the player has won or not by checking all rows, columns and both diaganols.
+    '''
+
     #check rows
     return ((board[1] == board[2] == board[3] == mark) or
     (board[4] == board[5] == board[6] == mark) or
@@ -54,5 +60,59 @@ def win_check(board, mark):
     (board[7] == board[5] == board[3] == mark) or
     (board[1] == board[5] == board[9] == mark))
 
-display_board(test_board)
 win_check(test_board,'X')
+
+#Step 5: Write a function that uses the random module to randomly decide which player goes first. Return a string of
+#which player went first.
+
+import random
+
+def choose_first():
+    ''' Randomly assigns which player will go first.
+    '''
+    players = ['Player 1', 'Player 2']
+
+    results = random.choices(players, k=1)
+    print(results)
+choose_first()
+
+#Step 6: Write a function that returns a boolean indicating whether a space on the board is freely available.
+
+def space_check(board, position):
+
+    if board[position] == ' ':
+        print(f'True')
+    else:
+        print(f'False')
+
+space_check(test_board,4)
+
+#Step 7: Write a function that checks if the board is full and returns a boolean value. True if full, False otherwise.
+
+def full_board_check(board):
+    for i in range(1,10):
+        if space_check(board,i):
+            return False
+    return True
+
+#Step 8: Write a function that asks for a player's next position (as a number 1-9) and then uses the function from step
+# 6 to check if it's a free position. If it is, then return the position for later use.
+def player_position(board):
+
+    position = 0
+    while position not in range(1,10) or not space_check(board,position):
+        position = int(input(f'Choose your next position, 1-9? '))
+
+    return position
+
+player_position(test_board)
+
+#Step 9: Write a function that asks the player if they want to play again and returns a boolean True if they do want to
+# play again.
+
+def replay():
+    choice = input(f'Would you like to play again? Y or N: ')
+
+    return choice == 'Yes'
+
+replay()
