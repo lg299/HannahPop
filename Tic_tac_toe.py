@@ -21,7 +21,7 @@ def player_choice():
     marker = ' '
 
     while marker != 'X' and marker != 'O':
-        marker = input('Player1 choose X or O: ').upper()
+        marker = input('Player 1 please choose X or O: \n').upper()
 
     if marker == 'X':
         return ('X', 'O')
@@ -33,9 +33,8 @@ def player_choice():
 # Step 3  Write a function that takes in the board list object, a marker ('X' or 'O'), and a desired position (number 1-9) and assigns it to the board.
 
 def place_marker(board, marker, position):
-    print(f"place_marker time")
     board[position] = marker
-    print(f"board in place_marker: {board}")
+
 
 
 # Step 4: Write a function that takes in a board and a mark (X or O) and then checks to see if that mark has won.
@@ -77,10 +76,9 @@ def choose_first():
 
 def space_check(board, position):
     if board[position] == ' ':
-        print(f'We are in space check - true.')
         return True
     else:
-        print(f'We are in space check - false.')
+
         return False
 
 
@@ -99,7 +97,8 @@ def player_position(board):
     position = 0
     while position not in range(1, 10) or not space_check(board, position):
         position = int(input(f'Choose your next position, 1-9? '))
-        print(f"position: {position}")
+
+
 
     return position
 
@@ -119,16 +118,15 @@ def game_play():
 
 
     while True:
-        print(f'Welcome to Tic Tac Toe!')
+        print(f'Welcome to Tic Tac Toe!\n')
         the_board = [' '] * 10
         player1_marker, player2_marker = player_choice()
-        print(f"player1: {player1_marker}, player2: {player2_marker}")
+        print(f"Player1 will be: {player1_marker} and Player 2 will be: {player2_marker}.\n")
         turn = choose_first()
-        print(f"turn: {turn}")
-        print(f"{turn} goes first.")
+        print(f"{turn} you will be going first!")
 
-        play_game = input('Ready to play? y or n: ')
-        print(f"play_game: {play_game}")
+        play_game = input('Are you ready to play? y or n: \n')
+
         if play_game.lower()[0] == 'y':
             game_on = True
         else:
@@ -136,20 +134,20 @@ def game_play():
 
         ##GAME PLAY
         while game_on:
-            print(f"The game is starting")
+            print(f"The game is starting...")
             if turn == 'Player 1':
                 display_board(the_board)
 
                 # Choose the position
                 position = player_position(the_board)
-                print(f"position returned: {position}")
+
 
                 # Place the marker on the position
+
                 place_marker(the_board, player1_marker, position)
-                print(f"Printing the board")
                 display_board(the_board)
                 has_won = win_check(the_board, player1_marker)
-                print(f"has_won: {has_won}")
+
                 # Check if they won
                 if has_won:
                     display_board(the_board)
@@ -158,13 +156,14 @@ def game_play():
 
                 # Or check if there is a tie
                 else:
-                    print(f"You have not won.")
+                    print(f"Player 1 you have not won.")
                     if full_board_check(the_board):
+                        print(f"full board check happening: {full_board_check(the_board)}")
                         display_board(the_board)
                         print(f'Tie game!')
                         game_on = False
                     else:
-                        print(f"Player 2's turn begins.")
+                        print(f"Player 2 it's your turn.")
                         turn = 'Player 2'
 
             if turn == 'Player 2':
@@ -179,7 +178,7 @@ def game_play():
 
                 # Check if they won
                 has_won = win_check(the_board, player2_marker)
-                print(f"has_won: {has_won}")
+
                 # Check if they won
                 if has_won:
                     display_board(the_board)
@@ -198,19 +197,9 @@ def game_play():
                         turn = 'Player 1'
 
 
-            print(f"outside if turn == player 1")
+
             if has_won == True:
                 play_again_question()
                 break
 
 game_play()
-
-
-a = 5
-if a == 5:
-    print("a is 5")
-
-if a != 5:
-    print('a is not 5')
-
-print("finished")
