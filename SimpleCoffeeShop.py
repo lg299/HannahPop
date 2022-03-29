@@ -43,3 +43,5 @@ except ValueError:
 
 for coffee in [big, regular, small]:
     coffee.sell(user_budget)
+
+print('hi')
